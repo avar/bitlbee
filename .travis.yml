@@ -33,6 +33,7 @@ addons:
     - fakeroot
     - debhelper
     - devscripts
+    - libmysqlclient-dev
   coverity_scan:
     project:
       name: "bitlbee/bitlbee"
