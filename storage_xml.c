@@ -288,6 +288,7 @@ static storage_status_t xml_load_real(irc_t *irc, const char *my_nick, const cha
 	}
 
 	handle_settings(node, &xd->irc->b->set);
+	irc_setpass(irc, xd->given_pass);
 
 	if (xt_handle(xp, NULL, 1) == XT_HANDLED) {
 		ret = STORAGE_OK;
