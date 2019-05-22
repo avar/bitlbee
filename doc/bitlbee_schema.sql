@@ -4,6 +4,8 @@ CREATE TABLE users (
     `login`          VARCHAR(32) NOT NULL,
     `password`       VARCHAR(128) NOT NULL,
     `auth_backend`   VARCHAR(64) NOT NULL,
+    `mysql_row_created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `mysql_row_updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`login`)
 );
 
@@ -12,6 +14,8 @@ CREATE TABLE settings (
     `setting` VARCHAR(32) NOT NULL,
     `value`   VARCHAR(64) NOT NULL,
     `locked`  TINYINT(1) NOT NULL DEFAULT 0,
+    `mysql_row_created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `mysql_row_updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`login`, `setting`),
     INDEX `login` (`login`)
 );
@@ -25,6 +29,8 @@ CREATE TABLE accounts (
     `server`       VARCHAR(64) NOT NULL DEFAULT "",
     `auto_connect` TINYINT(1) NOT NULL DEFAULT 0,
     `locked`       TINYINT(1) NOT NULL DEFAULT 0,
+    `mysql_row_created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `mysql_row_updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`login`, `account`),
     INDEX `login` (`login`)
 );
@@ -35,6 +41,8 @@ CREATE TABLE account_settings (
     `setting` VARCHAR(32) NOT NULL,
     `value`   VARCHAR(64) NOT NULL,
     `locked`  TINYINT(1) NOT NULL DEFAULT 0,
+    `mysql_row_created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `mysql_row_updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`login`, `account`, `setting`),
     INDEX `login` (`login`, `account`)
 );
@@ -45,6 +53,8 @@ CREATE TABLE channel_settings (
     `setting` VARCHAR(32) NOT NULL,
     `value`   VARCHAR(64) NOT NULL,
     `locked`  TINYINT(1) NOT NULL DEFAULT 0,
+    `mysql_row_created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `mysql_row_updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`login`, `channel`, `setting`),
     INDEX `login` (`login`)
 );
@@ -54,6 +64,8 @@ CREATE TABLE buddies (
     `account`VARCHAR(64) NOT NULL,
     `handle` VARCHAR(64) NOT NULL,
     `nick`   VARCHAR(64) NOT NULL,
+    `mysql_row_created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `mysql_row_updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`login`, `account`, `handle`),
     INDEX `login` (`login`, `account`)
 );
