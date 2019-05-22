@@ -142,7 +142,7 @@ static void cmd_identify(irc_t *irc, char **cmd)
 		return;
 	}
 
-	status = auth_check_pass(irc, irc->user->nick, password);
+	status = auth_check_pass(irc->auth_backend, irc->user->nick, password);
 	if (load && (status == STORAGE_OK)) {
 		status = storage_load(irc, password);
 	}
@@ -265,7 +265,7 @@ static void cmd_drop(irc_t *irc, char **cmd)
 {
 	storage_status_t status;
 
-	status = auth_check_pass(irc, irc->user->nick, cmd[1]);
+	status = auth_check_pass(irc->auth_backend, irc->user->nick, cmd[1]);
 	if (status == STORAGE_OK) {
 		status = storage_remove(irc->user->nick);
 	}

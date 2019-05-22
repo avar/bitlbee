@@ -145,7 +145,7 @@ static gboolean irc_sasl_check_pass(irc_t *irc, char *user, char *pass)
 
 	/* just check the password here to be able to reply with useful numerics
 	 * the actual identification will be handled later */
-	status = auth_check_pass(irc, user, pass);
+	status = auth_check_pass(irc->auth_backend, user, pass);
 
 	if (status == STORAGE_OK) {
 		if (!irc->user->nick) {

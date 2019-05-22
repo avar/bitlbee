@@ -9,5 +9,5 @@ typedef struct {
 } auth_backend_t;
 
 GList *auth_init(const char *backend);
-storage_status_t auth_check_pass(irc_t *irc, const char *nick, const char *password);
+storage_status_t auth_check_pass(const char *backend, const char *nick, const char *password);
 #endif

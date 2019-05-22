@@ -141,13 +141,7 @@ static storage_status_t b_mysql_check_pass_real(irc_t *irc, MYSQL *con, const ch
 
 	row = mysql_fetch_row(res);
 	if (row[1] && *row[1]) {
-		if (!strcmp(row[1], "ldap"))
-			ret = ldap_check_pass(nick, password);
-		else
-			/* TODO!: infinite loop b_mysql_check_pass ->
-			 * <this> -> auth_check_pass ->
-			 * storage_check_pass -> b_mysql_check_pass */
-			ret = auth_check_pass(irc, nick, password);
+		ret = auth_check_pass(row[1], nick, password);
 		if ((ret == STORAGE_OK) && irc) {
 			irc_setpass(irc, password);
 			irc->auth_backend = g_strdup(row[1]);

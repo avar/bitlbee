@@ -114,7 +114,7 @@ storage_status_t storage_check_pass(irc_t *irc, const char *nick, const char *pa
 
 	/* If we have configured an authentication backend, try it */
 	if (global.conf->auth_backend)
-		return auth_check_pass(irc, nick, password);
+		return auth_check_pass(global.conf->auth_backend, nick, password);
 
 	return STORAGE_NO_SUCH_USER;
 }
@@ -151,7 +151,7 @@ storage_status_t storage_load(irc_t * irc, const char *password)
 
 	/* If we have configured an authentication backend, try it */
 	if (global.conf->auth_backend) {
-		storage_status_t status = auth_check_pass(irc, irc->user->nick, password);
+		storage_status_t status = auth_check_pass(global.conf->auth_backend, irc->user->nick, password);
 		if (status == STORAGE_OK) {
 			GSList *l;
 			irc_setpass(irc, password);
