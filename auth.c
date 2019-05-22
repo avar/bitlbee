@@ -29,6 +29,8 @@ GList *auth_init(const char *backend)
 storage_status_t auth_check_pass(const char *backend, const char *nick, const char *password)
 {
 	GList *gl;
+	if (!backend)
+		backend = global.conf->auth_backend;
 	for (gl = global.auth; gl; gl = gl->next) {
 		auth_backend_t *be = gl->data;
 		if (!strcmp(be->name, backend))
