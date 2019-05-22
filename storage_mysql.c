@@ -125,6 +125,11 @@ static storage_status_t b_mysql_check_pass_real(irc_t *irc, MYSQL *con, const ch
 	MYSQL_RES *res;
 	storage_status_t ret;
 
+	if (!password) {
+		irc_setpass(irc, password);
+		return STORAGE_OK;
+	}
+
 	if (!(res = b_mysql_select(con, "SELECT `password`, `auth_backend` FROM `users` WHERE `login`='%s'", nick))) {
 		return STORAGE_OTHER_ERROR;
 	}
@@ -151,7 +156,7 @@ static storage_status_t b_mysql_check_pass_real(irc_t *irc, MYSQL *con, const ch
 	return ret;
 }
 
-static storage_status_t b_mysql_check_pass(const char *nickname, const char *password) {
+static storage_status_t b_mysql_check_pass(irc_t *irc, const char *nickname, const char *password) {
 	MYSQL *con = b_mysql_connection();
 	storage_status_t ret;
 	if (!con) {
@@ -401,7 +406,7 @@ static storage_status_t b_mysql_remove_real(MYSQL *con, const char *nick) {
 	return STORAGE_OK;
 }
 
-static storage_status_t b_mysql_remove(const char *nick, const char *password) {
+static storage_status_t b_mysql_remove(const char *nick) {
 	MYSQL *con;
 	storage_status_t ret;
 
@@ -410,7 +415,7 @@ static storage_status_t b_mysql_remove(const char *nick, const char *password) {
 		log_message(LOGLVL_WARNING, "Unable to access database, configuration for %s not removed.", nick);
 		return STORAGE_OTHER_ERROR;
 	}
-	ret = b_mysql_check_pass_real(NULL, con, nick, password);
+	ret = b_mysql_check_pass_real(NULL, con, nick, NULL);
 	if (!ret) ret = b_mysql_remove_real(con, nick);
 
 	mysql_close(con);
