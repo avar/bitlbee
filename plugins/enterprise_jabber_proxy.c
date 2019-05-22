@@ -15,6 +15,20 @@
 #define LDAP_DEPRECATED 1
 #include <ldap.h>
 
+struct plugin_info *init_plugin_info(void)
+{
+	static struct plugin_info info = {
+		BITLBEE_ABI_VERSION_CODE,
+		"enterprise_jabber_proxy",
+		BITLBEE_VERSION,
+		"Turns BitlBee into an Enterprise Jabber proxy",
+		NULL,
+		NULL
+	};
+
+	return &info;
+}
+
 static void ldap_find_data(const char *nick, char **mail, char **name)
 {
 	LDAP *ldap;
