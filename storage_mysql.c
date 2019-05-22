@@ -141,7 +141,7 @@ static storage_status_t b_mysql_check_pass_real(irc_t *irc, MYSQL *con, const ch
 
 	row = mysql_fetch_row(res);
 	if (row[1] && *row[1]) {
-		ret = auth_check_pass(row[1], nick, password);
+		ret = auth_check_pass(irc, nick, password);
 		if ((ret == STORAGE_OK) && irc) {
 			irc_setpass(irc, password);
 			irc->auth_backend = g_strdup(row[1]);
